@@ -3,7 +3,7 @@
 // =======================================
 
 // Replace with your Adafruit IO username
-const AIO_USERNAME = "YOUR_ADAFRUIT_USERNAME";
+const AIO_USERNAME = "KAALI";
 
 // Your five Adafruit IO feed keys
 const FEEDS = {
