@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorGuard Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div>
+        <h1>MotorGuard</h1>
+        <p>Smart Motor Monitoring System</p>
+    </div>
+    <div class="connection">
+        <span class="dot"></span>
+        <span id="connection">Connecting...</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="welcome">
+        <div>
+            <h2>Motor Dashboard</h2>
+            <p>Real-time motor health monitoring</p>
+        </div>
+        <p id="last-updated">Last updated: --</p>
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+            <div class="card-icon">🌡️</div>
+            <h3>Temperature</h3>
+            <div class="value">
+                <span id="temperature">--</span>
+                <small>°C</small>
+            </div>
+            <p>Motor temperature reading</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Current</h3>
+            <div class="value">
+                <span id="current">--</span>
+                <small>A</small>
+            </div>
+            <p>Motor current reading</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📳</div>
+            <h3>Vibration</h3>
+            <div class="value status" id="vibration">--</div>
+            <p>Vibration sensor status</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚙️</div>
+            <h3>Motor Status</h3>
+            <div class="value status" id="motor-status">--</div>
+            <p>Overall motor condition</p>
+        </div>
+
+    </section>
+
+    <section class="alert-section">
+        <h2>Alert Monitoring</h2>
+        <div class="alert-box" id="alert-box">
+            <span class="alert-symbol">●</span>
+            <span id="alert-message">Waiting for sensor data...</span>
+        </div>
+    </section>
+
+    <footer>
+        <p>MotorGuard | Smart Motor Monitoring System</p>
+        <p>Powered by ESP8266 and Adafruit IO</p>
+    </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
