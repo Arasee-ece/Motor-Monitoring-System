@@ -3,86 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotorGuard Dashboard</title>
+    <title>MotorGuard | Industrial Monitoring</title>
+
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<header class="header">
-    <div>
-        <h1>MotorGuard</h1>
-        <p>Smart Motor Monitoring System</p>
-    </div>
-    <div class="connection">
-        <span class="dot"></span>
-        <span id="connection">Connecting...</span>
-    </div>
-</header>
+<div class="app">
 
-<main class="container">
-
-    <section class="welcome">
-        <div>
-            <h2>Motor Dashboard</h2>
-            <p>Real-time motor health monitoring</p>
-        </div>
-        <p id="last-updated">Last updated: --</p>
-    </section>
-
-    <section class="cards">
-
-        <div class="card">
-            <div class="card-icon">🌡️</div>
-            <h3>Temperature</h3>
-            <div class="value">
-                <span id="temperature">--</span>
-                <small>°C</small>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">M</div>
+            <div>
+                <h2>MotorGuard</h2>
+                <span>INDUSTRIAL IOT</span>
             </div>
-            <p>Motor temperature reading</p>
         </div>
 
-        <div class="card">
-            <div class="card-icon">⚡</div>
-            <h3>Current</h3>
-            <div class="value">
-                <span id="current">--</span>
-                <small>A</small>
+        <p class="menu-label">MAIN MENU</p>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">▦ Dashboard</a>
+            <a href="#monitoring" class="nav-link">◉ Live Monitoring</a>
+            <a href="#alerts" class="nav-link">⚑ Alerts</a>
+            <a href="#about" class="nav-link">ⓘ About System</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-mini">
+                <span class="mini-dot"></span>
+                <div>
+                    <strong>System Status</strong>
+                    <small id="sideConnection">Connecting...</small>
+                </div>
             </div>
-            <p>Motor current reading</p>
+            <p>MotorGuard v2.0</p>
         </div>
+    </aside>
 
-        <div class="card">
-            <div class="card-icon">📳</div>
-            <h3>Vibration</h3>
-            <div class="value status" id="vibration">--</div>
-            <p>Vibration sensor status</p>
-        </div>
 
-        <div class="card">
-            <div class="card-icon">⚙️</div>
-            <h3>Motor Status</h3>
-            <div class="value status" id="motor-status">--</div>
-            <p>Overall motor condition</p>
-        </div>
+    <main class="main-content" id="dashboard">
 
-    </section>
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">INDUSTRIAL MONITORING / OVERVIEW</p>
+                <h1>Motor Dashboard</h1>
+                <p class="subtitle">Monitor your motor health in real time.</p>
+            </div>
 
-    <section class="alert-section">
-        <h2>Alert Monitoring</h2>
-        <div class="alert-box" id="alert-box">
-            <span class="alert-symbol">●</span>
-            <span id="alert-message">Waiting for sensor data...</span>
-        </div>
-    </section>
+            <div class="top-status">
+                <span class="status-dot" id="connectionDot"></span>
+                <span id="connectionText">Connecting to Adafruit IO</span>
+            </div>
+        </header>
 
-    <footer>
-        <p>MotorGuard | Smart Motor Monitoring System</p>
-        <p>Powered by ESP8266 and Adafruit IO</p>
-    </footer>
 
-</main>
+        <section class="overview">
+            <div>
+                <p class="section-label">MOTOR HEALTH</p>
+                <h2>Motor Performance Overview</h2>
+            </div>
+
+            <div class="updated">
+                <span>LAST UPDATED</span>
+                <strong id="lastUpdated">--</strong>
+            </div>
+        </section>
+
+
+        <section class="health-banner" id="healthBanner">
+            <div class="health-symbol">✓</div>
+            <div>
+                <span>OVERALL MOTOR CONDITION</span>
+                <h2 id="healthTitle">Waiting for sensor data</h2>
+                <p id="healthDescription">Connecting to monitoring system...</p>
+            </div>
+            <div class="health-tag" id="healthTag">WAITING</div>
+        </section>
+
+
+        <section class="metrics" id="monitoring">
+
+            <article class="metric-card">
+                <div class="metric-heading">
+                    <div>
+                        <span class="metric-icon orange">♨</span>
+                        <h3>Temperature</h3>
+                    </div>
+                    <span class="live-label">LIVE</span>
+                </div>
+
+                <div class="gauge" id="temperatureGauge">
+                    <div class="gauge-inner">
+                        <strong id="temperature">--</strong>
+                        <span>°C</span>
+                    </div>
+                </div>
+
+                <div class="metric-footer">
+                    <span>Temperature reading</span>
+                    <strong id="temperatureState">Waiting</strong>
+                </div>
+            </article>
+
+
+            <article class="metric-card">
+                <div class="metric-heading">
+                    <div>
+                        <span class="metric-icon blue">ϟ</span>
+                        <h3>Current</h3>
+                    </div>
+                    <span class="live-label">LIVE</span>
+                </div>
+
+                <div class="gauge blue-gauge" id="currentGauge">
+                    <div class="gauge-inner">
+                        <strong id="current">--</strong>
+                        <span>A</span>
+                    </div>
+                </div>
+
+                <div class="metric-footer">
+                    <span>Current reading</span>
+                    <strong id="currentState">Waiting</strong>
+                </div>
+            </article>
+
+
+            <article class="metric-card status-card">
+                <div class="metric-heading">
+                    <div>
+                        <span class="metric-icon purple">⌁</span>
+                        <h3>Vibration</h3>
+                    </div>
+                    <span class="live-label">LIVE</span>
+                </div>
+
+                <div class="status-display">
+                    <div class="status-circle" id="vibrationCircle">✓</div>
+                    <h2 id="vibration">--</h2>
+                    <p>Vibration sensor status</p>
+                </div>
+
+                <div class="metric-footer">
+                    <span>Detection status</span>
+                    <strong id="vibrationState">Waiting</strong>
+                </div>
+            </article>
+
+
+            <article class="metric-card status-card">
+                <div class="metric-heading">
+                    <div>
+                        <span class="metric-icon green">⚙</span>
+                        <h3>Motor Status</h3>
+                    </div>
+                    <span class="live-label">LIVE</span>
+                </div>
+
+                <div class="status-display">
+                    <div class="status-circle" id="motorCircle">✓</div>
+                    <h2 id="motorStatus">--</h2>
+                    <p>Overall operating condition</p>
+                </div>
+
+                <div class="metric-footer">
+                    <span>System condition</span>
+                    <strong id="motorState">Waiting</strong>
+                </div>
+            </article>
+
+        </section>
+
+
+        <section class="charts-section">
+            <div class="section-heading">
+                <div>
+                    <p class="section-label">SENSOR ANALYTICS</p>
+                    <h2>Performance Trends</h2>
+                </div>
+                <span class="chart-badge">Recent readings</span>
+            </div>
+
+            <div class="charts-grid">
+                <article class="chart-card">
+                    <h3>Temperature History</h3>
+                    <p>Recent temperature readings (°C)</p>
+                    <div class="chart-wrap">
+                        <canvas id="temperatureChart"></canvas>
+                    </div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Current History</h3>
+                    <p>Recent current readings (A)</p>
+                    <div class="chart-wrap">
+                        <canvas id="currentChart"></canvas>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="alerts-section" id="alerts">
+            <div class="section-heading">
+                <div>
+                    <p class="section-label">SYSTEM NOTIFICATIONS</p>
+                    <h2>Alert Monitoring</h2>
+                </div>
+            </div>
+
+            <div class="alert-panel" id="alertPanel">
+                <div class="alert-icon">✓</div>
+                <div>
+                    <strong id="alertTitle">Waiting for data</strong>
+                    <p id="alertMessage">Adafruit IO readings will appear here.</p>
+                </div>
+                <span id="alertTime">--</span>
+            </div>
+        </section>
+
+
+        <section class="about-section" id="about">
+            <h2>About MotorGuard</h2>
+            <p>
+                MotorGuard is an IoT-based smart motor monitoring system
+                that monitors temperature, current and vibration using
+                sensors connected to an ESP8266 microcontroller.
+                It provides real-time monitoring and alerts through
+                the Adafruit IO cloud platform.
+            </p>
+        </section>
+
+
+        <footer>
+            <span>MotorGuard © 2026</span>
+            <span>Powered by ESP8266 & Adafruit IO</span>
+        </footer>
+
+    </main>
+</div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
