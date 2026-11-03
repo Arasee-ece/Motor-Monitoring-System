@@ -1,5 +1,5 @@
 // ENTER YOUR ADAFRUIT IO USERNAME HERE
-const AIO_USERNAME = "YOUR_ADAFRUIT_USERNAME";
+const AIO_USERNAME = "KAALI";
 
 // Adafruit IO feed keys
 const FEEDS = {
